@@ -1,0 +1,41 @@
+{
+  "examples": [
+    {
+      "_description": "New opportunity — Seguros Bolívar Póliza de Movilidad",
+      "Opportunity ID": "SB-2026-001",
+      "Client": "Seguros Bolívar",
+      "Main Contact": "",
+      "Contact Email": "",
+      "Contact WhatsApp": "",
+      "Proposal Name": "Póliza de Movilidad",
+      "Proposal Link": "",
+      "Source Proposal Used": "Seguros Bolívar - MIDAS - Propuesta Renta Voluntaria V1.0",
+      "Brief Date": "2026-03-19",
+      "Proposal Sent Date": "2026-03-19",
+      "Send Channel": "Email",
+      "Current Stage": "Propuesta enviada",
+      "Temperature": "Tibia",
+      "Budget": "3000000",
+      "Expected Value": "3000000",
+      "Last Contact Date": "2026-03-19",
+      "Last Contact Summary": "Se envió propuesta inicial de audiencias para Póliza de Movilidad.",
+      "Next Follow-up Date": "2026-03-23",
+      "Next Recommended Action": "Enviar follow-up 1",
+      "Expected Next Step": "Confirmar recepción y validar interés / siguientes pasos",
+      "Objections / Risks": "Sin respuesta aún",
+      "Priority": "Alta",
+      "Updated At": "2026-03-19",
+      "Notes": "Primera propuesta enviada usando deck previo como base."
+    },
+    {
+      "_description": "Update — after follow-up 1 sent",
+      "Opportunity ID": "SB-2026-001",
+      "Current Stage": "Follow-up 1",
+      "Last Contact Date": "2026-03-23",
+      "Last Contact Summary": "Se envió primer follow-up por email.",
+      "Next Follow-up Date": "2026-03-28",
+      "Next Recommended Action": "Enviar follow-up 2",
+      "Updated At": "2026-03-23"
+    }
+  ]
+}
