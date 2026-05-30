@@ -13,7 +13,7 @@ Last updated: 2026-04-07
 - Rodrigo Reyes — fundador/CEO de MIDAS
 - MIDAS: empresa de datos y audiencias en Colombia (mercado latam de 1st party data)
 - Gmail/Workspace: rodrigo@m1das.media
-- Telegram ID: 8454593317
+- Telegram ID: <CONFIGURAR_LOCALMENTE>
 - Timezone: America/Bogota (pero host está en America/New_York)
 
 ## Skills Instalados

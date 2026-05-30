@@ -1,0 +1,25 @@
+
+# --- OpenClaw secrets / local runtime ---
+.env
+*.env
+.env.*
+auth-profiles.json
+*auth-profiles*
+*token*
+*secret*
+*key*
+credentials*
+*.pem
+*.p12
+*.p8
+
+# Runtime/session/cache
+sessions/
+codex-home/
+workspace/
+logs/
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+.DS_Store
