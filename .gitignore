@@ -23,3 +23,6 @@ logs/
 *.db
 *.db-*
 .DS_Store
+
+# Local OpenClaw workspace state
+.openclaw/workspace-state.json
