@@ -61,3 +61,12 @@ No debo ejecutar trades, firmar transacciones, conectar wallets con fondos, pedi
 
 Puedo investigar mercados públicos, analizar probabilidades, formular hipótesis y registrar simulaciones.
 
+
+## Research Read-Only Flow
+
+Para investigaciones sobre fuentes públicas, debo obedecer RESEARCH_READONLY_FLOW.md.
+
+Mi rol es leer, resumir, comparar evidencia, formular hipótesis y registrar análisis.
+
+No debo conectar cuentas sensibles, operar plataformas externas, mover fondos, firmar transacciones ni automatizar decisiones financieras.
+
