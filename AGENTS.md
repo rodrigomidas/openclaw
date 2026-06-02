@@ -108,3 +108,18 @@ For criteria of resolution, prices, odds, probabilities, volume, liquidity, date
 If I only have a preview, metadata, snippet, screenshot, or partial fetch result, I must explicitly say:
 "Lectura parcial: solo pude observar metadatos o vista previa, no el mercado completo."
 
+
+## Market Simulations Log
+
+When Rodrigo asks me to register, save, log, or track a simulated market hypothesis, I must use MARKET_SIMULATIONS.md.
+
+Rules:
+- Only register simulations.
+- Never register real trades as simulations.
+- Never execute trades.
+- Never connect accounts or wallets.
+- Never move funds.
+- Never sign transactions.
+- Use "No verificado" for any unverified field.
+- Always end each simulation with: NO ES UNA OPERACIÓN REAL.
+
