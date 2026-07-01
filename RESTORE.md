@@ -10,20 +10,30 @@ El estado del agente está repartido en TRES lugares. No confundirlos:
 | Ubicación | Qué es | ¿Respaldado? |
 |---|---|---|
 | `~/Projects/openclaw` (este repo, `origin` = github.com/rodrigomidas/openclaw) | Copia **curada** de políticas/identidad/memoria. Rama canónica: `main`. | ✅ GitHub |
-| `~/.openclaw/workspace/` | **Runtime vivo** que el agente lee/edita. Repo git propio. | ⚠️ **SIN upstream — ver "Gap crítico"** |
+| `~/.openclaw/workspace/` | **Runtime vivo** que el agente lee/edita. Repo git propio. | ✅ github.com/rodrigomidas/openclaw-workspace (privado; solo `.md`, secretos/estado gitignoreados) |
 | `~/.openclaw/` (`.env`, `service-env/`, `auth-profiles*`, `openclaw.json`, `identity/`) | **Secretos y config de runtime.** | ❌ Solo local — ver `VAULT_BACKUP.md` |
 
 Los `.md` de políticas (AGENTS, SOUL, PAPER_TRADING, POLYMARKET_READONLY, etc.)
 existen en los tres lugares y **pueden divergir**. La fuente de verdad para
 políticas es este repo (`main`); el workspace se sincroniza desde acá.
 
-## Gap crítico conocido (a remediar)
+## Restaurar el workspace vivo
 
-- **`~/.openclaw/workspace/` no tiene remote y suele tener cambios sin commitear.**
-  Si se pierde la máquina, se pierde el trabajo vivo que no esté también acá.
-  Remediación: darle un `.gitignore` (excluir `.openclaw/`, `.clawhub/`,
-  sesiones, `*.json` de estado, secretos) y un remote de backup, o sincronizar
-  sus `.md` a este repo con regularidad.
+`~/.openclaw/workspace/` ya está respaldado en
+`github.com/rodrigomidas/openclaw-workspace` (privado; solo `.md` de política,
+con `.gitignore` que excluye estado de runtime y secretos). Para restaurarlo:
+
+```bash
+git clone https://github.com/rodrigomidas/openclaw-workspace.git ~/.openclaw/workspace
+```
+
+Recordá commitear/pushear ahí cuando edites políticas del agente en vivo (no es
+automático). Las `skills/` NO están en ese backup: son repos propios
+(p.ej. `skills/polyclaw` = github.com/chainstacklabs/polyclaw) que se restauran
+clonándolos por separado, y su `.env` se recupera desde el vault.
+
+## Gap conocido (a remediar)
+
 - **Los secretos no se respaldan en git** (correcto por seguridad) pero deben
   respaldarse aparte: ver `VAULT_BACKUP.md`. Sin ellos el agente restaurado
   no arranca (sin API keys, sin token de Telegram, y **sin la llave de la wallet
