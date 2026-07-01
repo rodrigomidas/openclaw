@@ -1,27 +1,65 @@
-# Restaurar OpenClaw Rodrigo Agent
+# Restaurar el agente OpenClaw / Musk
 
-Este repo contiene archivos seguros de identidad, memoria inicial y configuración conceptual del agente.
+Cómo volver a un agente funcional desde cero (máquina nueva o pérdida total).
+Leer entero antes de ejecutar.
 
-## No contiene secretos
+## Mapa de dónde vive el estado (IMPORTANTE)
 
-No debe contener:
+El estado del agente está repartido en TRES lugares. No confundirlos:
 
-- API Keys
-- tokens de Telegram
-- tokens de GitHub
-- `.env`
-- `auth-profiles.json`
-- sesiones locales
-- bases SQLite
-- logs
+| Ubicación | Qué es | ¿Respaldado? |
+|---|---|---|
+| `~/Projects/openclaw` (este repo, `origin` = github.com/rodrigomidas/openclaw) | Copia **curada** de políticas/identidad/memoria. Rama canónica: `main`. | ✅ GitHub |
+| `~/.openclaw/workspace/` | **Runtime vivo** que el agente lee/edita. Repo git propio. | ⚠️ **SIN upstream — ver "Gap crítico"** |
+| `~/.openclaw/` (`.env`, `service-env/`, `auth-profiles*`, `openclaw.json`, `identity/`) | **Secretos y config de runtime.** | ❌ Solo local — ver `VAULT_BACKUP.md` |
 
-## Restaurar archivos del agente
+Los `.md` de políticas (AGENTS, SOUL, PAPER_TRADING, POLYMARKET_READONLY, etc.)
+existen en los tres lugares y **pueden divergir**. La fuente de verdad para
+políticas es este repo (`main`); el workspace se sincroniza desde acá.
 
-Desde la raíz del repo:
+## Gap crítico conocido (a remediar)
+
+- **`~/.openclaw/workspace/` no tiene remote y suele tener cambios sin commitear.**
+  Si se pierde la máquina, se pierde el trabajo vivo que no esté también acá.
+  Remediación: darle un `.gitignore` (excluir `.openclaw/`, `.clawhub/`,
+  sesiones, `*.json` de estado, secretos) y un remote de backup, o sincronizar
+  sus `.md` a este repo con regularidad.
+- **Los secretos no se respaldan en git** (correcto por seguridad) pero deben
+  respaldarse aparte: ver `VAULT_BACKUP.md`. Sin ellos el agente restaurado
+  no arranca (sin API keys, sin token de Telegram, y **sin la llave de la wallet
+  de Polygon no hay acceso a fondos**).
+
+## Procedimiento de restauración
+
+### 1. Instalar el runtime OpenClaw
+Instalar el binario/paquete de OpenClaw (ver `~/.openclaw/npm/package.json` para
+la versión) y correr una vez para que cree la estructura `~/.openclaw/`.
+
+### 2. Restaurar secretos y config de runtime
+Seguir `VAULT_BACKUP.md` en orden inverso: restaurar `~/.openclaw/.env`,
+`~/.openclaw/service-env/ai.openclaw.gateway.env`, `auth-profiles.json`,
+`~/.openclaw/openclaw.json` e `identity/device.json` desde el vault seguro.
+
+### 3. Restaurar políticas e identidad del agente
+Clonar este repo y copiar los `.md` al workspace del runtime:
 
 ```bash
-cp IDENTITY.md ~/.openclaw/agents/main/agent/ 2>/dev/null || true
-cp USER.md ~/.openclaw/agents/main/agent/ 2>/dev/null || true
-cp SOUL.md ~/.openclaw/agents/main/agent/ 2>/dev/null || true
-cp BOOTSTRAP.md ~/.openclaw/agents/main/agent/ 2>/dev/null || true
-cp MEMORY.md ~/.openclaw/agents/main/agent/ 2>/dev/null || true
+git clone https://github.com/rodrigomidas/openclaw.git
+cd openclaw
+# El agente lee de ~/.openclaw/workspace/. Copiar TODAS las políticas:
+mkdir -p ~/.openclaw/workspace
+cp -v *.md ~/.openclaw/workspace/
+# BOOTSTRAP.md vive en el runtime (~/.openclaw/agents/main/agent/), no en este
+# repo; si no lo tenés en el vault, se regenera en el primer arranque del agente.
+```
+
+### 4. Verificar antes de habilitar trading
+- El agente arranca en modo **paper trading** (ver `PAPER_TRADING.md`).
+- Confirmar que `POLYMARKET_READONLY.md` y `SECURITY.md` están cargados ANTES
+  de habilitar cualquier ejecución con dinero real.
+- Revisar `runbook.md` (en polyclaw-musk) para arranque y parada de emergencia.
+
+## Qué NO va en este repo (nunca commitear)
+
+API keys · tokens de Telegram/GitHub · `.env` · `auth-profiles.json` ·
+**llave/seed de la wallet** · sesiones locales · SQLite · logs. Ver `.gitignore`.
