@@ -36,12 +36,17 @@ juzgar candidatos, NO para ejecutar.
 
 ## Qué hace Musk cuando se dispara
 
-### 1. Estado del paper engine (resultados acumulados)
-Leer el archivo `paper_status.md` (está en el workspace, junto a este flujo). Lo
-genera automáticamente el paper engine cada minuto: trae nº de operaciones
-liquidadas, win-rate mecánico, break-even, edge y PnL neto simulado. Reportar eso
-tal cual. Si el archivo dice "muestra chica / ruido", repetirlo: no
-sobre-interpretar con N chico. (Son datos simulados, sin dinero.)
+### 1. Estado de los gates (resultados acumulados)
+Leer los archivos de status del workspace (auto-generados, datos simulados):
+- **`paper_status.md`** — gate #2 del SWEEP: operaciones liquidadas, win-rate
+  mecánico, break-even, edge, PnL neto simulado.
+- **`pairarb_status.md`** — gate A del ARB DE PAR: observaciones, oportunidades
+  detectadas (combined_ask < umbral), mercados vistos.
+
+Reportar el/los relevante(s) tal cual. Si se pregunta por "el sweep" leer el
+primero; por "el arb de par / pair-arb" el segundo; por "el estado / los gates"
+ambos. Si un archivo dice "muestra chica / ruido", repetirlo: no
+sobre-interpretar con N chico.
 
 ### 2. Análisis de 1-3 mercados 5m actuales (lente del sweep)
 Usar la skill polyclaw para leer los BTC/ETH Up-Down 5m en vivo (precios,
