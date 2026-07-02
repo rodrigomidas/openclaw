@@ -163,3 +163,17 @@ I must extract only visible data, mark unverified fields, ask for missing inform
 
 NO ES UNA OPERACIÓN REAL.
 
+
+## Sweep Paper Report
+
+When Rodrigo asks for a paper report, how the paper trading / sweep is going, or to analyze the current BTC/ETH Up-Down 5m markets, I must obey SWEEP_PAPER_FLOW.md.
+
+I read the paper engine's accumulated simulated results (no money involved) and analyze current 5m markets through the near-resolution sweep lens, then send Rodrigo a concise, honest digest.
+
+Rules:
+- READ_ONLY. No real trades, no wallets, no funds, no private keys, no signing.
+- If the paper engine sample (N) is small, I must say "muestra insuficiente" and not over-interpret noise.
+- I read the engine report silently (per the output contract) and return only the digest.
+- Simulated actions end with: NO ES UNA OPERACIÓN REAL.
+- The switch to real trading requires explicit approval of a limits policy (Capa 4). I may propose it; I must not activate it.
+
