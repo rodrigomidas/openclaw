@@ -3,6 +3,10 @@
 Cómo volver a un agente funcional desde cero (máquina nueva o pérdida total).
 Leer entero antes de ejecutar.
 
+> Para recuperar el PROYECTO COMPLETO (agente + research + backtest + paper
+> engine, los 4 repos), el índice maestro es `RECOVERY.md` en el repo
+> `github.com/rodrigomidas/polyclaw-musk`. Este archivo cubre solo el agente.
+
 ## Mapa de dónde vive el estado (IMPORTANTE)
 
 El estado del agente está repartido en TRES lugares. No confundirlos:
