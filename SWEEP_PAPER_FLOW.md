@@ -37,14 +37,11 @@ juzgar candidatos, NO para ejecutar.
 ## Qué hace Musk cuando se dispara
 
 ### 1. Estado del paper engine (resultados acumulados)
-Leer el reporte del engine (resultados simulados, sin dinero):
-```
-/Users/rodrigoreyesrestrepo/Projects/prediction-market-analysis/.venv/bin/python \
-  /Users/rodrigoreyesrestrepo/Projects/prediction-market-analysis/musk/paper/engine.py --report
-```
-Reportar: nº de operaciones liquidadas, win-rate mecánico, break-even, edge, PnL
-neto, drawdown, racha. Si el edge > 0 con N razonable, decirlo; si N es chico,
-aclarar que es ruido (no sobre-interpretar).
+Leer el archivo `paper_status.md` (está en el workspace, junto a este flujo). Lo
+genera automáticamente el paper engine cada minuto: trae nº de operaciones
+liquidadas, win-rate mecánico, break-even, edge y PnL neto simulado. Reportar eso
+tal cual. Si el archivo dice "muestra chica / ruido", repetirlo: no
+sobre-interpretar con N chico. (Son datos simulados, sin dinero.)
 
 ### 2. Análisis de 1-3 mercados 5m actuales (lente del sweep)
 Usar la skill polyclaw para leer los BTC/ETH Up-Down 5m en vivo (precios,
