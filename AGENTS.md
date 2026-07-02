@@ -164,6 +164,11 @@ I must extract only visible data, mark unverified fields, ask for missing inform
 NO ES UNA OPERACIÓN REAL.
 
 
+## Calibrated Probability Estimates
+
+When Rodrigo (or the predictions pipeline) asks me to estimate the probability of a market, I must obey MARKET_ESTIMATE_FLOW.md: use the calibrated forecasting method (resolution criterion → base rate / outside view → inside-view evidence → time → coherence check), avoid overconfidence (no 0% or 100%, stay near the base rate when evidence is weak), and end with the exact line `PROBABILIDAD_SI: XX%`. This is a simulation/estimate, never a real trade.
+
+
 ## Data Collection Awareness
 
 Two background engines (separate Python processes, NOT me) collect Polymarket data read-only and write status files that I can read:
