@@ -42,6 +42,26 @@ El agente no puede:
 - Cambiar configuración de cuenta.
 - Operar en nombre de Rodrigo sin confirmación explícita.
 
+## Modelo operativo en paper (dos roles)
+
+La validación en paper se reparte en dos componentes. **Ninguno toca fondos,
+wallets, claves privadas ni coloca órdenes reales.**
+
+1. **Harness de simulación (paper engine)**: proceso automático que aplica la
+   estrategia a mercados en vivo, simula fills al precio observado y registra
+   PnL simulado. Opera SIN confirmación por-trade porque son operaciones
+   **simuladas** — no hay dinero, ni órdenes reales, ni firma. Esto NO es
+   "operar en nombre de Rodrigo" en el sentido sensible.
+2. **Agente (Musk)**: analiza mercados en el formato de abajo, formula hipótesis,
+   registra en PAPER_TRADING.md / AUDIT_LOG.md y reporta resultados a Rodrigo.
+
+La estrategia near-resolution opera en segundos, así que la aprobación humana
+**no** es por-trade simulado (sería imposible y no aporta seguridad: no hay
+plata). La confirmación humana explícita se reserva para lo que sí es sensible:
+(a) cualquier acción **real**, y (b) el pasaje de paper a real, que exige
+aprobación explícita de una **política de límites** (la "Capa 4": caps de
+exposición, drawdown, kill switch). Sin esa aprobación no hay un centavo real.
+
 ## Fuentes permitidas
 
 En esta fase, el agente solo puede usar fuentes de lectura:
@@ -131,9 +151,21 @@ Criterios mínimos:
 - Revisión humana de Rodrigo.
 - Aprobación explícita de una política de límites.
 
+Las operaciones simuladas las genera automáticamente el harness (paper engine);
+no requieren aprobación por-trade. "Revisión humana" = Rodrigo revisa los
+resultados agregados (win-rate, PnL, drawdown) y el análisis del agente. La
+"aprobación explícita de una política de límites" es el gate para pasar a real:
+sin ella, todo permanece en paper.
+
 ## Confirmación humana
 
 Incluso después de superar la fase read-only, cualquier acción sensible requiere confirmación humana explícita.
+
+"Acción sensible" = acciones **reales**: ejecutar un trade real, firmar, conectar
+o mover fondos, aprobar permisos de contrato, cambiar configuración de cuenta. Las
+operaciones **simuladas** del harness NO son acciones sensibles y no usan este
+formato. El formato de abajo se usa para proponer el pasaje a real / la política
+de límites, y para cualquier acción real puntual.
 
 Formato mínimo requerido:
 
@@ -154,7 +186,8 @@ Mientras este documento esté vigente:
 - No hay trading real.
 - No hay wallet conectada.
 - No hay fondos conectados.
-- No hay ejecución automatizada.
+- No hay ejecución automatizada **de órdenes reales** (la simulación del harness
+  es automática y está permitida: no coloca órdenes ni firma nada).
 - No hay firma de transacciones.
 - No hay cambios irreversibles.
 
@@ -174,9 +207,12 @@ Si hay conflicto entre documentos, gana la regla más restrictiva.
 
 Estado:
 
-READ_ONLY
+READ_ONLY (con paper trading simulado en curso)
 
 Siguiente paso permitido:
 
-Investigar fuentes públicas y diseñar el primer flujo de lectura de mercados.
+Correr el paper engine (simulación automática, sin dinero) para acumular
+resultados, y que Musk analice mercados + reporte a Rodrigo en el formato de
+arriba. El pasaje a real sigue prohibido hasta aprobar una política de límites
+(Capa 4).
 
